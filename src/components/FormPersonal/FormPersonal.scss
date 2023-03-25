@@ -1,0 +1,41 @@
+.subform-input {
+  @apply flex flex-col mb-4;
+
+  input {
+    @apply rounded p-2 text-sm;
+    border: 1px solid var(--color-neutral-ligth-gray);
+    font-family: 'Ubuntu-Bold';
+    color: var(--color-prime-marine-blue);
+  }
+
+  label {
+    @apply text-xs;
+    font-family: 'Ubuntu-Medium';
+    color: var(--color-prime-marine-blue);
+  }
+
+  .error-message {
+    @apply text-xs text-[var(--color-prime-strawberry-blue)];
+  }
+}
+
+@media (min-width: 768px) {
+  .subform-input {
+    input {
+      @apply text-lg mb-1;
+    }
+
+    label {
+      @apply text-lg mb-1;
+    }
+
+    .error-message {
+      @apply text-lg text-[var(--color-prime-strawberry-blue)];
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .subform-wrapper {
+  }
+}

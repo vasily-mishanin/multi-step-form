@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Ubuntu-Regular';
+  src: url('./assets/fonts/Ubuntu-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Ubuntu-Medium';
+  src: url('./assets/fonts/Ubuntu-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Ubuntu-Bold';
+  src: url('./assets/fonts/Ubuntu-Bold.ttf');
+}
+
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+
+  //color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  //
+  --color-prime-marine-blue: hsl(213, 96%, 18%);
+  --color-prime-purplish-blue: hsl(243, 100%, 62%);
+  --color-prime-pastel-blue: hsl(228, 100%, 84%);
+  --color-prime-light-blue: hsl(206, 94%, 87%);
+  --color-prime-strawberry-blue: hsl(354, 84%, 57%);
+  --color-neutral-cool-gray: hsl(231, 11%, 63%);
+  --color-neutral-ligth-gray: hsl(229, 24%, 87%);
+  --color-neutral-magnolia: hsl(217, 100%, 97%);
+  --color-neutral-alabaster: hsl(231, 100%, 99%);
+  --color-neutral-white: hsl(0, 0%, 100%);
+  //
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    // color: #213547;
+    // background-color: #ffffff;
+  }
+}

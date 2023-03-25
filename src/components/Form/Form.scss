@@ -1,0 +1,16 @@
+.main-form {
+  height: calc(100% - 112px);
+}
+
+@media (min-width: 768px) {
+  .main-form {
+    height: 100%;
+    flex-grow: 1;
+    @apply px-12;
+  }
+}
+
+@media (min-width: 1440px) {
+  .main-form {
+  }
+}

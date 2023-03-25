@@ -1,0 +1,22 @@
+.steps-section {
+  @apply flex justify-center items-center p-9;
+}
+
+@media (min-width: 768px) {
+  .steps-section {
+    @apply justify-start items-start px-4 py-12  text-xs
+    bg-[url('../../assets/images/bg-sidebar-desktop.svg')] bg-cover bg-no-repeat rounded-xl w-[30%];
+  }
+}
+
+@media (min-width: 1024px) {
+  .steps-section {
+    @apply text-sm px-8;
+  }
+}
+
+@media (min-width: 1440px) {
+  .steps-section {
+    @apply text-lg;
+  }
+}

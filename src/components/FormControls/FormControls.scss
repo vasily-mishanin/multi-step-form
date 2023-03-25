@@ -1,0 +1,18 @@
+.steps-controls {
+  background: var(--color-neutral-white);
+  font-family: 'Ubuntu-Bold';
+
+  .btn-next,
+  .btn-back {
+    @apply px-4 py-2 rounded-md;
+  }
+
+  .btn-next {
+    @apply text-[var(--color-neutral-alabaster)];
+    background-color: var(--color-prime-marine-blue);
+  }
+
+  .btn-back {
+    @apply text-[var(--color-neutral-cool-gray)];
+  }
+}

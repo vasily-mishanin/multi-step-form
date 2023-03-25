@@ -1,0 +1,36 @@
+.subform-wrapper {
+  background: var(--color-neutral-white);
+  width: 350px;
+  @apply px-6 py-6 rounded-xl;
+
+  .subform-title {
+    @apply text-2xl mb-2;
+    font-family: 'Ubuntu-Bold';
+    color: var(--color-prime-marine-blue);
+  }
+
+  .subform-subtitle {
+    @apply text-lg mb-6;
+    font-family: 'Ubuntu-Bold';
+    color: var(--color-neutral-ligth-gray);
+  }
+}
+
+@media (min-width: 768px) {
+  .subform-wrapper {
+    width: 100%;
+
+    .subform-title {
+      @apply mb-3;
+    }
+
+    .subform-subtitle {
+      @apply mb-8;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .subform-wrapper {
+  }
+}

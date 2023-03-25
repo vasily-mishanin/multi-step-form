@@ -1,0 +1,13 @@
+.step-badge {
+  @apply w-10 h-10 border-2 rounded-full 
+        flex justify-center items-center  font-bold
+        border-[var(--color-neutral-magnolia)] 
+        text-[var(--color-neutral-magnolia)];
+  font-family: 'Ubuntu-Bold';
+}
+
+.active {
+  @apply border-[var(--color-prime-light-blue)] 
+            bg-[var(--color-prime-light-blue)]
+            text-[var(--color-prime-marine-blue)];
+}
