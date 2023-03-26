@@ -3,13 +3,14 @@ import { useMultiStepForm } from '../../hooks/useMultiStepForm';
 import { Step } from '../../model/types';
 import Form from '../Form/Form';
 import { FormPersonal } from '../FormPersonal/FormPersonal';
+import { FormPlan } from '../FormPlan/FormPlan';
 import { StepsSection } from '../StepsSection/StepsSection';
 import { StepBadge } from '../UI/StepBadge/StepBadge';
 import './StepForm.scss';
 
 const FORMS = [
-  FormPersonal(),
-  <div>Two</div>,
+  <FormPersonal />,
+  <FormPlan planType='month' />,
   <div>Three</div>,
   <div>Four</div>,
 ];

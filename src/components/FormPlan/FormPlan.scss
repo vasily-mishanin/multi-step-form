@@ -1,0 +1,14 @@
+.subform-plan-input {
+  @apply flex items-start gap-5 p-3 border-solid border border-[var(--color-neutral-ligth-gray)] rounded-md mb-3
+          hover:border-[var(--color-prime-purplish-blue)];
+}
+
+.checked {
+  @apply bg-[var(--color-neutral-alabaster)] border-[var(--color-prime-purplish-blue)];
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 1440px) {
+}
