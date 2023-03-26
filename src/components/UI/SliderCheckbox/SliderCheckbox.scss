@@ -1,0 +1,34 @@
+.slider-checkbox {
+  font-family: 'Ubuntu-Bold';
+  input[type='checkbox'] {
+    position: relative;
+    appearance: none;
+    width: 40px;
+    height: 20px;
+    background-color: var(--color-prime-marine-blue);
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  input[type='checkbox']:before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    background-color: var(--color-neutral-white);
+    transition: all 0.5s;
+  }
+
+  input:checked[type='checkbox']:before {
+    content: '';
+    left: 22px;
+  }
+
+  label {
+    cursor: pointer;
+  }
+}
