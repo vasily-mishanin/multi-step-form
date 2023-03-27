@@ -4,12 +4,14 @@ type StepsControlsProps = {
   currentStep: number;
   onNext: () => void;
   onBack: () => void;
+  nextIsDisabled: boolean;
 };
 
 export default function FormControls({
   onNext,
   onBack,
   currentStep,
+  nextIsDisabled,
 }: StepsControlsProps) {
   return (
     <div className='steps-controls flex justify-between p-4 w-[100%]'>
@@ -20,7 +22,12 @@ export default function FormControls({
       >
         Go Back
       </button>
-      <button className='btn-next' onClick={onNext} type='button'>
+      <button
+        className='btn-next'
+        onClick={onNext}
+        type='button'
+        disabled={nextIsDisabled}
+      >
         Next Step
       </button>
     </div>

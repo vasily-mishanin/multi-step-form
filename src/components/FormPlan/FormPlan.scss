@@ -8,6 +8,15 @@
 }
 
 @media (min-width: 768px) {
+  .subform-plan-input {
+    flex: 1 1 0px;
+    @apply flex-col h-48;
+  }
+
+  .plans-wrapper {
+    display: flex;
+    gap: 1.25rem;
+  }
 }
 
 @media (min-width: 1440px) {
