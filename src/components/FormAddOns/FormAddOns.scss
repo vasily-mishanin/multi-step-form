@@ -1,0 +1,31 @@
+.addon-label {
+  @apply flex gap-4 justify-start items-center  p-4 rounded-lg border border-[var(--color-neutral-ligth-gray)] text-sm 
+        cursor-pointer hover:border-[var(--color-prime-purplish-blue)];
+
+  .addon-input {
+    width: 1.25rem;
+    height: 1.25rem;
+    @apply outline-none border border-[var(--color-neutral-ligth-gray)];
+  }
+
+  .addon-title {
+    @apply text-[var(--color-prime-marine-blue)];
+    font-family: 'Ubuntu-Bold';
+  }
+  .addon-description {
+    @apply text-xs text-[var(--color-neutral-cool-gray)];
+  }
+
+  .addon-price {
+    font-family: 'Ubuntu-Bold';
+    @apply ml-auto text-xs text-[var(--color-prime-purplish-blue)];
+  }
+
+  input[type='checkbox']:checked {
+    accent-color: var(--color-prime-purplish-blue);
+  }
+}
+
+.checked {
+  @apply bg-[var(--color-neutral-alabaster)] border-[var(--color-prime-purplish-blue)];
+}

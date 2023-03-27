@@ -20,14 +20,15 @@ export interface IPlan {
   marketingMessage: string;
 }
 
-export interface IAddOns {
-  onlineService: { checked: boolean; price: number };
-  largerStorage: { checked: boolean; price: number };
-  customizableProfile: { checked: boolean; price: number };
+export interface IAddOn {
+  title: string;
+  checked: boolean;
+  price: number;
+  description: string;
 }
 
 export interface IFormData {
   user: IUser;
   plan: IPlan;
-  addOns: IAddOns;
+  addOns: IAddOn[];
 }

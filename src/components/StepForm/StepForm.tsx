@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useMultiStepForm } from '../../hooks/useMultiStepForm';
-import { IFormData, IUser, PlanTitle, PlanType, Step } from '../../model/types';
+import {
+  IAddOn,
+  IFormData,
+  IUser,
+  PlanTitle,
+  PlanType,
+  Step,
+} from '../../model/types';
 import Form from '../Form/Form';
+import { FormAddOns } from '../FormAddOns/FormAddOns';
 import { FormPersonal } from '../FormPersonal/FormPersonal';
 import { FormPlan } from '../FormPlan/FormPlan';
 import { StepsSection } from '../StepsSection/StepsSection';
@@ -17,11 +25,7 @@ const INITIAL_FORM_DATA: IFormData = {
     currency: '$',
     marketingMessage: '2 months free',
   },
-  addOns: {
-    onlineService: { checked: false, price: 1 },
-    largerStorage: { checked: false, price: 2 },
-    customizableProfile: { checked: false, price: 2 },
-  },
+  addOns: [],
 };
 
 const STEPS: Step[] = [
@@ -41,6 +45,10 @@ export default function StepForm() {
 
   const handlePlanValid = (val: boolean) => {
     setNextIsDisabled(!val);
+  };
+
+  const handleAddOnsValid = (val: boolean) => {
+    // setNextIsDisabled(!val);
   };
 
   const updateUserFields = (user: Partial<IUser>) => {
@@ -76,6 +84,28 @@ export default function StepForm() {
     });
   };
 
+  const updateAddOnsFields = (addOn: IAddOn) => {
+    console.log('updateAddOnsFields ', addOn);
+    setFormData((prev) => {
+      const newAddOns = [...prev.addOns];
+      const oldAddOnIndex = newAddOns.findIndex(
+        (item) => item.title === addOn.title
+      );
+      console.log('oldAddOnIndex - ', oldAddOnIndex);
+
+      if (oldAddOnIndex === -1) {
+        newAddOns.push(addOn);
+      } else {
+        newAddOns.splice(oldAddOnIndex, 1);
+      }
+
+      return {
+        ...prev,
+        addOns: newAddOns,
+      };
+    });
+  };
+
   // CUSTOM HOOK
   const { steps, currentStep, next, back } = useMultiStepForm([
     <FormPersonal
@@ -88,7 +118,12 @@ export default function StepForm() {
       updatePlan={updatePlanFields}
       iAmValid={handlePlanValid}
     />,
-    <div>Three</div>,
+    <FormAddOns
+      checkedAddOns={formData.addOns}
+      planType={formData.plan.planType}
+      updateAddOn={updateAddOnsFields}
+      iAmValid={handleAddOnsValid}
+    />,
     <div>Four</div>,
   ]);
   const [activeStep, setActiveStep] = useState(1);
