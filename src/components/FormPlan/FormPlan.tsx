@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IPlan, PlanTitle, PlanType } from '../../model/types';
 import { SubfromWrapper } from '../SubfromWrapper/SubfromWrapper';
 import { StepBadge } from '../UI/StepBadge/StepBadge';
@@ -12,6 +12,7 @@ type FormPlanProps = {
   planType: PlanType;
   planTitle: PlanTitle | null;
   updatePlan: (planTitle: PlanTitle | null, period: PlanType) => void;
+  iAmValid: (val: boolean) => void;
 };
 
 type InputPlanProps = {
@@ -69,6 +70,7 @@ export function FormPlan({
   planType: checkedPlanType,
   planTitle: checkedPlanTitle,
   updatePlan,
+  iAmValid,
 }: FormPlanProps) {
   const [checkedIndex, setCheckedIndex] = useState<number | null>(
     getCheckedIndex(checkedPlanTitle)
@@ -76,11 +78,13 @@ export function FormPlan({
 
   const [checkedPlan, setCheckedPlan] = useState(checkedPlanTitle);
   const [period, setPeriod] = useState(checkedPlanType);
+  const didMount = useRef(false);
 
   const handlePlanCheck = (index: number, planTitle: PlanTitle | null) => {
     setCheckedIndex(index);
     setCheckedPlan(planTitle);
     if (planTitle) {
+      iAmValid(true);
       updatePlan(planTitle, period);
     }
   };
@@ -93,6 +97,18 @@ export function FormPlan({
     const newPeriod = period === 'month' ? 'year' : 'month';
     updatePlan(checkedPlan, newPeriod);
   };
+
+  // one time after refresh
+  useEffect(() => {
+    if (!didMount.current) {
+      if (checkedPlanTitle) {
+        iAmValid(true);
+      } else {
+        iAmValid(false);
+      }
+      didMount.current = true;
+    }
+  }, []);
 
   return (
     <SubfromWrapper
@@ -135,8 +151,8 @@ function InputPlan({
 }: InputPlanProps) {
   const inputClass =
     index === checkedIndex
-      ? 'subform-plan-input ease-in duration-100 checked'
-      : 'subform-plan-input ease-in duration-100';
+      ? 'subform-plan-input ease-in duration-100 cursor-pointer checked'
+      : 'subform-plan-input ease-in duration-100 cursor-pointer';
 
   const messageClass =
     period === 'month'

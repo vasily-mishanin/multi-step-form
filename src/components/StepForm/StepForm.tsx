@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMultiStepForm } from '../../hooks/useMultiStepForm';
 import { IFormData, IUser, PlanTitle, PlanType, Step } from '../../model/types';
 import Form from '../Form/Form';
@@ -33,6 +33,15 @@ const STEPS: Step[] = [
 
 export default function StepForm() {
   const [formData, setFormData] = useState<IFormData>(INITIAL_FORM_DATA);
+  const [nextIsDisabled, setNextIsDisabled] = useState(true);
+
+  const handleUserValid = (val: boolean) => {
+    setNextIsDisabled(!val);
+  };
+
+  const handlePlanValid = (val: boolean) => {
+    setNextIsDisabled(!val);
+  };
 
   const updateUserFields = (user: Partial<IUser>) => {
     console.log('updateUserFields');
@@ -67,9 +76,18 @@ export default function StepForm() {
     });
   };
 
+  // CUSTOM HOOK
   const { steps, currentStep, next, back } = useMultiStepForm([
-    <FormPersonal {...formData.user} updateFields={updateUserFields} />,
-    <FormPlan {...formData.plan} updatePlan={updatePlanFields} />,
+    <FormPersonal
+      {...formData.user}
+      updateFields={updateUserFields}
+      iAmValid={handleUserValid}
+    />,
+    <FormPlan
+      {...formData.plan}
+      updatePlan={updatePlanFields}
+      iAmValid={handlePlanValid}
+    />,
     <div>Three</div>,
     <div>Four</div>,
   ]);
@@ -103,6 +121,7 @@ export default function StepForm() {
         onBack={handleBack}
         currentForm={currentStep}
         currentStep={activeStep}
+        nextIsDisabled={nextIsDisabled}
       />
     </section>
   );

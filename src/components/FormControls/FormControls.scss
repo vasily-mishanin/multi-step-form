@@ -10,6 +10,10 @@
   .btn-next {
     @apply text-[var(--color-neutral-alabaster)];
     background-color: var(--color-prime-marine-blue);
+
+    &:disabled {
+      opacity: 0.5;
+    }
   }
 
   .btn-back {
