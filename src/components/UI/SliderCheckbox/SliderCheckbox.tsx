@@ -1,18 +1,35 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
+import { PlanType } from '../../../model/types';
 import './SliderCheckbox.scss';
 
 type SliderCheckboxProps = {
   leftLabel: string;
   rightLabel: string;
+  isChecked: boolean;
+  onChangePeriod: (period: PlanType) => void;
 };
 
-export function SliderCheckbox({ leftLabel, rightLabel }: SliderCheckboxProps) {
-  const [checked, setChecked] = useState<'LEFT' | 'RIGHT'>('LEFT');
+export function SliderCheckbox({
+  leftLabel,
+  rightLabel,
+  onChangePeriod,
+  isChecked,
+}: SliderCheckboxProps) {
+  const [checked, setChecked] = useState<'LEFT' | 'RIGHT'>(
+    isChecked ? 'RIGHT' : 'LEFT'
+  );
 
-  const handleCheck = () => {
+  const handleCheck = (e: FormEvent) => {
     setChecked((prev) => {
       return prev === 'LEFT' ? 'RIGHT' : 'LEFT';
     });
+
+    const value = (e.target as HTMLInputElement).value;
+    if (value === 'year') {
+      onChangePeriod(value);
+      return;
+    }
+    onChangePeriod('month');
   };
 
   const leftLabelClass =
@@ -29,7 +46,13 @@ export function SliderCheckbox({ leftLabel, rightLabel }: SliderCheckboxProps) {
       <label htmlFor='planType' className={leftLabelClass}>
         {leftLabel}
       </label>
-      <input type='checkbox' id='planType' onChange={handleCheck} />
+      <input
+        type='checkbox'
+        id='planType'
+        value='year'
+        onChange={handleCheck}
+        checked={isChecked}
+      />
       <label htmlFor='planType' className={rightLabelClass}>
         {rightLabel}
       </label>

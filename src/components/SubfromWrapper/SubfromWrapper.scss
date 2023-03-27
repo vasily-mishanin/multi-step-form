@@ -4,13 +4,13 @@
   @apply px-6 py-6 rounded-xl;
 
   .subform-title {
-    @apply text-2xl mb-2;
+    @apply text-xl mb-1;
     font-family: 'Ubuntu-Bold';
     color: var(--color-prime-marine-blue);
   }
 
   .subform-subtitle {
-    @apply text-lg mb-6;
+    @apply text-base mb-4;
     font-family: 'Ubuntu-Bold';
     color: var(--color-neutral-ligth-gray);
   }

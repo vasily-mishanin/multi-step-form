@@ -10,6 +10,8 @@ import { SliderCheckbox } from '../UI/SliderCheckbox/SliderCheckbox';
 
 type FormPlanProps = {
   planType: PlanType;
+  planTitle: PlanTitle | null;
+  updatePlan: (planTitle: PlanTitle | null, period: PlanType) => void;
 };
 
 type InputPlanProps = {
@@ -18,30 +20,31 @@ type InputPlanProps = {
   plan: IPlan;
   required?: boolean;
   errorMsg?: string;
-  onCheck: (index: number) => void;
+  onCheck: (index: number, title: PlanTitle | null) => void;
+  period: PlanType;
 };
 
 type PlanBadgeProps = {
-  title: PlanTitle;
+  title: PlanTitle | null;
 };
 
 const PLANS_DATA: IPlan[] = [
   {
-    title: 'Arcade',
+    planTitle: 'Arcade',
     planType: 'month',
     price: 9,
     currency: '$',
     marketingMessage: '2 months free',
   },
   {
-    title: 'Advanced',
-    planType: 'year',
+    planTitle: 'Advanced',
+    planType: 'month',
     price: 12,
     currency: '$',
     marketingMessage: '2 months free',
   },
   {
-    title: 'Pro',
+    planTitle: 'Pro',
     planType: 'month',
     price: 15,
     currency: '$',
@@ -49,11 +52,46 @@ const PLANS_DATA: IPlan[] = [
   },
 ];
 
-export function FormPlan({ planType }: FormPlanProps) {
-  const [checkedIndex, setCheckedIndex] = useState<number | null>(null);
+const getCheckedIndex = (title: PlanTitle | null) => {
+  switch (title) {
+    case 'Arcade':
+      return 0;
+    case 'Advanced':
+      return 1;
+    case 'Pro':
+      return 2;
+    default:
+      return null;
+  }
+};
 
-  const handleCheck = (index: number) => {
+export function FormPlan({
+  planType: checkedPlanType,
+  planTitle: checkedPlanTitle,
+  updatePlan,
+}: FormPlanProps) {
+  const [checkedIndex, setCheckedIndex] = useState<number | null>(
+    getCheckedIndex(checkedPlanTitle)
+  );
+
+  const [checkedPlan, setCheckedPlan] = useState(checkedPlanTitle);
+  const [period, setPeriod] = useState(checkedPlanType);
+
+  const handlePlanCheck = (index: number, planTitle: PlanTitle | null) => {
     setCheckedIndex(index);
+    setCheckedPlan(planTitle);
+    if (planTitle) {
+      updatePlan(planTitle, period);
+    }
+  };
+
+  const changePeriod = () => {
+    console.log('changePeriod');
+    setPeriod((prev) => {
+      return prev === 'month' ? 'year' : 'month';
+    });
+    const newPeriod = period === 'month' ? 'year' : 'month';
+    updatePlan(checkedPlan, newPeriod);
   };
 
   return (
@@ -61,16 +99,25 @@ export function FormPlan({ planType }: FormPlanProps) {
       title='Select your plan'
       subtitle='You have the option of monthly or yearly billing'
     >
-      {PLANS_DATA.map((plan, index) => (
-        <InputPlan
-          index={index}
-          checkedIndex={checkedIndex}
-          plan={plan}
-          onCheck={handleCheck}
-        />
-      ))}
+      <div className='plans-wrapper'>
+        {PLANS_DATA.map((plan, index) => (
+          <InputPlan
+            key={plan.planTitle}
+            index={index}
+            checkedIndex={checkedIndex}
+            plan={plan}
+            onCheck={handlePlanCheck}
+            period={period}
+          />
+        ))}
+      </div>
 
-      <SliderCheckbox leftLabel='Monthly' rightLabel='Yearly' />
+      <SliderCheckbox
+        leftLabel='Monthly'
+        rightLabel='Yearly'
+        onChangePeriod={changePeriod}
+        isChecked={period === 'year'}
+      />
     </SubfromWrapper>
   );
 }
@@ -84,31 +131,33 @@ function InputPlan({
   onCheck,
   index,
   checkedIndex,
+  period,
 }: InputPlanProps) {
   const inputClass =
     index === checkedIndex
-      ? 'subform-plan-input checked'
-      : 'subform-plan-input';
+      ? 'subform-plan-input ease-in duration-100 checked'
+      : 'subform-plan-input ease-in duration-100';
+
+  const messageClass =
+    period === 'month'
+      ? 'font-[Ubuntu-Medium] text-[var(--color-prime-marine-blue)] text-xs ease-in duration-300 h-0'
+      : 'font-[Ubuntu-Medium] text-[var(--color-prime-marine-blue)] text-xs ease-in duration-300 h-4';
 
   return (
-    <div className={inputClass} onClick={() => onCheck(index)}>
+    <div className={inputClass} onClick={() => onCheck(index, plan.planTitle)}>
       {' '}
-      <PlanBadge title={plan.title} />
+      <PlanBadge title={plan.planTitle} />
       <div className=''>
-        <h3 className='font-[Ubuntu-Bold] text-[var(--color-prime-marine-blue)]'>
-          {plan.title}
+        <h3 className='font-[Ubuntu-Bold] text-[var(--color-prime-marine-blue)] text-sm'>
+          {plan.planTitle}
         </h3>
-        <p className='font-[Ubuntu-Regular] text-[var(--color-neutral-cool-gray)] text-sm'>
+        <p className='font-[Ubuntu-Regular] text-[var(--color-neutral-cool-gray)] text-xs'>
           {plan.currency}{' '}
-          {plan.planType === 'month'
-            ? `${plan.price}/mo`
-            : `${plan.price * 10}/yr`}
+          {period === 'month' ? `${plan.price}/mo` : `${plan.price * 10}/yr`}
         </p>
-        {plan.planType === 'year' && (
-          <p className='font-[Ubuntu-Medium] text-[var(--color-prime-marine-blue)] text-sm'>
-            {plan.marketingMessage}
-          </p>
-        )}
+        <p className={messageClass}>
+          {period === 'year' && plan.marketingMessage}
+        </p>
       </div>
     </div>
   );
@@ -126,7 +175,7 @@ function PlanBadge({ title }: PlanBadgeProps) {
       return <img src={IconPro} alt={title}></img>;
       break;
     default:
-      return <img src={IconArcade} alt={title}></img>;
+      return <img src={IconArcade} alt='default plan'></img>;
       break;
   }
 }
