@@ -52,10 +52,11 @@ Users should be able to:
 
 - [ ] A step is submitted, but no selection has been made
 
-### Screenshot
+### Screenshots
 
-![](./src/assets/images/screen mobile 2023-03-28 at 13.03.37.png)
-![](./src/assets/images/screen mobile 2023-03-28 at 13.03.37.png)
+![](./src/assets/images/screen_desktop.png)
+
+![](./src/assets/images/screen_mobile.png)
 
 ### Links
 
