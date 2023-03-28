@@ -15,7 +15,6 @@ export default function FormControls({
   currentStep,
   nextIsDisabled,
 }: StepsControlsProps) {
-  console.log('FormControls - ', currentStep);
   return (
     <div className='steps-controls flex justify-between p-4 w-[100%]'>
       <button

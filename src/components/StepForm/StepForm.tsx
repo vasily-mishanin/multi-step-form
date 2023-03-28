@@ -54,14 +54,12 @@ export default function StepForm() {
   };
 
   const updateUserFields = (user: Partial<IUser>) => {
-    console.log('updateUserFields');
     setFormData((prev) => {
       return { ...prev, user: { ...prev.user, ...user } };
     });
   };
 
   const updatePlanFields = (planTitle: PlanTitle | null, period: PlanType) => {
-    console.log('updatePlanFields');
     let newPrice: number = 0;
 
     if (planTitle === 'Arcade') {
@@ -106,13 +104,11 @@ export default function StepForm() {
   };
 
   const updateAddOnsFields = (addOn: IAddOn) => {
-    console.log('updateAddOnsFields ', addOn);
     setFormData((prev) => {
       const newAddOns = [...prev.addOns];
       const oldAddOnIndex = newAddOns.findIndex(
         (item) => item.title === addOn.title
       );
-      console.log('oldAddOnIndex - ', oldAddOnIndex);
 
       if (oldAddOnIndex === -1) {
         newAddOns.push(addOn);
@@ -156,7 +152,6 @@ export default function StepForm() {
   const [activeStep, setActiveStep] = useState(1); // only for sidebar numbers
 
   const handleNext = () => {
-    console.log('NEXT');
     next();
     setActiveStep((prevStep) => {
       // Confirm is (+1) step
@@ -184,7 +179,6 @@ export default function StepForm() {
 
   const handleConfirm = () => {
     handleNext();
-    console.log('SUBMIT: ', formData);
   };
 
   return (
