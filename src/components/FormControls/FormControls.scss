@@ -3,17 +3,25 @@
   font-family: 'Ubuntu-Bold';
 
   .btn-next,
-  .btn-back {
+  .btn-back,
+  .btn-confirm {
     @apply px-4 py-2 rounded-md;
-  }
-
-  .btn-next {
-    @apply text-[var(--color-neutral-alabaster)];
-    background-color: var(--color-prime-marine-blue);
 
     &:disabled {
       opacity: 0.5;
     }
+
+    &:hover:enabled {
+      opacity: 0.9;
+    }
+  }
+
+  .btn-next {
+    @apply text-[var(--color-neutral-alabaster)] bg-[var(--color-prime-marine-blue)];
+  }
+
+  .btn-confirm {
+    @apply text-[var(--color-neutral-white)] bg-[var(--color-prime-purplish-blue)];
   }
 
   .btn-back {

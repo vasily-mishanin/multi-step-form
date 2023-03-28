@@ -10,6 +10,7 @@ import {
 } from '../../model/types';
 import Form from '../Form/Form';
 import { FormAddOns } from '../FormAddOns/FormAddOns';
+import { FormFinish } from '../FormFinish/FormFinish';
 import { FormPersonal } from '../FormPersonal/FormPersonal';
 import { FormPlan } from '../FormPlan/FormPlan';
 import { StepsSection } from '../StepsSection/StepsSection';
@@ -48,7 +49,7 @@ export default function StepForm() {
   };
 
   const handleAddOnsValid = (val: boolean) => {
-    // setNextIsDisabled(!val);
+    // add ons are optional so no need to disable Next btn
   };
 
   const updateUserFields = (user: Partial<IUser>) => {
@@ -61,6 +62,7 @@ export default function StepForm() {
   const updatePlanFields = (planTitle: PlanTitle | null, period: PlanType) => {
     console.log('updatePlanFields');
     let newPrice: number = 0;
+
     if (planTitle === 'Arcade') {
       newPrice = 9;
     } else if (planTitle === 'Advanced') {
@@ -68,10 +70,27 @@ export default function StepForm() {
     } else if (planTitle === 'Pro') {
       newPrice = 15;
     }
+
     if (period === 'year') {
       newPrice = newPrice * 10;
     }
+
     setFormData((prev) => {
+      let prevPeriod = prev.plan.planType;
+      let newAddOns = [...prev.addOns];
+      // update addOns if period changed
+      if (prevPeriod !== period) {
+        newAddOns = newAddOns.map((addOn) => {
+          if (period === 'month') {
+            return { ...addOn, price: addOn.price / 10 };
+          }
+          if (period === 'year') {
+            return { ...addOn, price: addOn.price * 10 };
+          } else {
+            return addOn;
+          }
+        });
+      }
       return {
         ...prev,
         plan: {
@@ -80,6 +99,7 @@ export default function StepForm() {
           planType: period,
           price: newPrice,
         },
+        addOns: newAddOns,
       };
     });
   };
@@ -124,17 +144,22 @@ export default function StepForm() {
       updateAddOn={updateAddOnsFields}
       iAmValid={handleAddOnsValid}
     />,
-    <div>Four</div>,
+    <FormFinish
+      plan={formData.plan}
+      addOns={formData.addOns}
+      goToPlans={goToPlans}
+    />,
   ]);
-  const [activeStep, setActiveStep] = useState(1);
+
+  const [activeStep, setActiveStep] = useState(1); // only for sidebar numbers
 
   const handleNext = () => {
     next();
-    setActiveStep((step) => {
-      if (step >= STEPS.length) {
-        return step;
+    setActiveStep((prevStep) => {
+      if (prevStep >= STEPS.length) {
+        return prevStep;
       }
-      return step + 1;
+      return prevStep + 1;
     });
   };
 
@@ -147,6 +172,11 @@ export default function StepForm() {
       return step - 1;
     });
   };
+
+  function goToPlans() {
+    handleBack();
+    handleBack();
+  }
 
   return (
     <section className='step-form'>

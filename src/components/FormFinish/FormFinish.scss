@@ -1,0 +1,13 @@
+.finishing-form {
+  font-family: 'Ubuntu-Regular';
+}
+
+.totals-list-item {
+  @apply flex gap-4 justify-between items-center py-3;
+}
+
+@media screen and (min-width: 768px) {
+  .totals-list-item {
+    @apply py-4;
+  }
+}

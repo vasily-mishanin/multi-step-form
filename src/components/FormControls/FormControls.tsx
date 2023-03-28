@@ -23,12 +23,12 @@ export default function FormControls({
         Go Back
       </button>
       <button
-        className='btn-next'
+        className={currentStep < 4 ? 'btn-next' : 'btn-confirm'}
         onClick={onNext}
         type='button'
         disabled={nextIsDisabled}
       >
-        Next Step
+        {currentStep === 4 ? 'Confirm' : 'Next Step'}
       </button>
     </div>
   );

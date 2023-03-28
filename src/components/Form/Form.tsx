@@ -20,9 +20,11 @@ export default function Form({
   return (
     <form className='main-form flex flex-col justify-between items-center'>
       {currentForm}
+
       <FormControls
         onNext={onNext}
         onBack={onBack}
+        // onConfirm ?
         currentStep={currentStep}
         nextIsDisabled={nextIsDisabled}
       />
