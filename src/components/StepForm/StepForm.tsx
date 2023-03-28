@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useMultiStepForm } from '../../hooks/useMultiStepForm';
 import {
   IAddOn,
@@ -8,6 +8,7 @@ import {
   PlanType,
   Step,
 } from '../../model/types';
+import { FinishScreen } from '../FinishScreen/FinishScreen';
 import Form from '../Form/Form';
 import { FormAddOns } from '../FormAddOns/FormAddOns';
 import { FormFinish } from '../FormFinish/FormFinish';
@@ -149,14 +150,17 @@ export default function StepForm() {
       addOns={formData.addOns}
       goToPlans={goToPlans}
     />,
+    <FinishScreen />,
   ]);
 
   const [activeStep, setActiveStep] = useState(1); // only for sidebar numbers
 
   const handleNext = () => {
+    console.log('NEXT');
     next();
     setActiveStep((prevStep) => {
-      if (prevStep >= STEPS.length) {
+      // Confirm is (+1) step
+      if (prevStep >= STEPS.length + 1) {
         return prevStep;
       }
       return prevStep + 1;
@@ -178,15 +182,21 @@ export default function StepForm() {
     handleBack();
   }
 
+  const handleConfirm = () => {
+    handleNext();
+    console.log('SUBMIT: ', formData);
+  };
+
   return (
     <section className='step-form'>
       <StepsSection steps={STEPS} activeStepNumber={activeStep} />
       <Form
-        onNext={handleNext}
-        onBack={handleBack}
         currentForm={currentStep}
         currentStep={activeStep}
         nextIsDisabled={nextIsDisabled}
+        onNext={handleNext}
+        onBack={handleBack}
+        handleConfirm={handleConfirm}
       />
     </section>
   );

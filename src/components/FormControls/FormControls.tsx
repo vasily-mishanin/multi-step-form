@@ -4,15 +4,18 @@ type StepsControlsProps = {
   currentStep: number;
   onNext: () => void;
   onBack: () => void;
+  onConfirm: () => void;
   nextIsDisabled: boolean;
 };
 
 export default function FormControls({
   onNext,
   onBack,
+  onConfirm,
   currentStep,
   nextIsDisabled,
 }: StepsControlsProps) {
+  console.log('FormControls - ', currentStep);
   return (
     <div className='steps-controls flex justify-between p-4 w-[100%]'>
       <button
@@ -24,7 +27,7 @@ export default function FormControls({
       </button>
       <button
         className={currentStep < 4 ? 'btn-next' : 'btn-confirm'}
-        onClick={onNext}
+        onClick={currentStep < 4 ? onNext : onConfirm}
         type='button'
         disabled={nextIsDisabled}
       >
