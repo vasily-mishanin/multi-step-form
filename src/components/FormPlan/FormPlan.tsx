@@ -90,7 +90,6 @@ export function FormPlan({
   };
 
   const changePeriod = () => {
-    console.log('changePeriod');
     setPeriod((prev) => {
       return prev === 'month' ? 'year' : 'month';
     });

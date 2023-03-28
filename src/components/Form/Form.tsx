@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { FormEvent, ReactElement, useState } from 'react';
 import FormControls from '../FormControls/FormControls';
 import './Form.scss';
 
@@ -8,11 +8,13 @@ type FormWrapperProps = {
   nextIsDisabled: boolean;
   onNext: () => void;
   onBack: () => void;
+  handleConfirm: () => void;
 };
 
 export default function Form({
   onNext,
   onBack,
+  handleConfirm,
   currentForm,
   currentStep,
   nextIsDisabled,
@@ -20,12 +22,16 @@ export default function Form({
   return (
     <form className='main-form flex flex-col justify-between items-center'>
       {currentForm}
-      <FormControls
-        onNext={onNext}
-        onBack={onBack}
-        currentStep={currentStep}
-        nextIsDisabled={nextIsDisabled}
-      />
+
+      {currentStep < 5 && (
+        <FormControls
+          onNext={onNext}
+          onBack={onBack}
+          onConfirm={handleConfirm}
+          currentStep={currentStep}
+          nextIsDisabled={nextIsDisabled}
+        />
+      )}
     </form>
   );
 }
