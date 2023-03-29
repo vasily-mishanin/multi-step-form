@@ -170,7 +170,7 @@ function validate(name: InputName, value: string) {
   }
 
   if (name === 'phone') {
-    return value.length > 0 && /^\d{9,11}$/.test(value); // from 9 to 11 digits
+    return value.length > 0 && /^\+\d{9,12}$/.test(value); // from + .. 9 to 11 digits
   }
 
   return false;
