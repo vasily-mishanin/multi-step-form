@@ -10,9 +10,23 @@
   }
 
   .subform-subtitle {
-    @apply text-base mb-4;
+    @apply mb-4 text-base;
     font-family: 'Ubuntu-Bold';
     color: var(--color-neutral-cool-gray);
+  }
+}
+
+@media (min-width: 667px) {
+  .subform-wrapper {
+    width: 100%;
+
+    .subform-title {
+      @apply mb-3;
+    }
+
+    .subform-subtitle {
+      @apply mb-8;
+    }
   }
 }
 

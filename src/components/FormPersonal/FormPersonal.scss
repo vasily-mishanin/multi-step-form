@@ -44,3 +44,20 @@
   .subform-wrapper {
   }
 }
+
+@media (orientation: landscape) {
+  .subform-input {
+    @apply flex flex-col mb-2;
+    input {
+      @apply text-sm mb-1;
+    }
+
+    label {
+      @apply text-sm mb-1;
+    }
+
+    .error-message {
+      @apply text-sm text-[var(--color-prime-strawberry-blue)];
+    }
+  }
+}
