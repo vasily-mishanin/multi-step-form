@@ -8,3 +8,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <App />
   </React.StrictMode>
 );
+
+// window.addEventListener('orientationchange', function () {
+//   //console.log('ORIENTATION', screen.orientation, screen.height);
+//   this.document.body.style.height = screen.height.toString() + 'px';
+// });

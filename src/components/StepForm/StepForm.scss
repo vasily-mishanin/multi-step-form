@@ -5,9 +5,9 @@
   background-size: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 667px) {
   .step-form {
-    @apply w-[1000px] h-[600px] bg-none p-5 rounded-xl flex;
+    @apply bg-none p-5 rounded-xl flex;
     background-color: var(--color-neutral-white);
   }
 }
