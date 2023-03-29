@@ -5,14 +5,28 @@
   background-size: 100%;
 }
 
+@media (min-width: 667px) {
+  .step-form {
+    @apply bg-none p-5 rounded-xl flex;
+    background-color: var(--color-neutral-white);
+  }
+}
+
 @media (min-width: 768px) {
   .step-form {
-    @apply w-[1000px] h-[600px] bg-none p-5 rounded-xl flex;
+    @apply w-[80%] h-[90%] bg-none p-5 rounded-xl flex;
     background-color: var(--color-neutral-white);
+  }
+}
+
+@media (min-width: 1024px) {
+  .step-form {
+    @apply w-[80%] h-[75%];
   }
 }
 
 @media (min-width: 1440px) {
   .step-form {
+    @apply w-[70%] h-[70%];
   }
 }
